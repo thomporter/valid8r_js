@@ -1,0 +1,30 @@
+{
+	"name": "valid8r_js",
+	"description": "JavaScript version of the Valid8r library",
+	"version": "1.0.0",
+	"keywords": ["validation"],
+	"homepage": "http://thomporter.com/valid8r",
+	"author": "Thom Porter",
+	"repository": {
+		"type": "git",
+		"url" : "https://github.com/thomporter/valid8r_js"
+	},
+	"bugs": {
+		"url": "https://github.com/thomporter/valid8r_js/issues"
+	},
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "https://github.com/thomporter/valid8r_js/MIT-LICENSE"
+		}
+	],
+	"scripts": {
+		"start": "node examples.js"
+	},
+	"engines": {
+		"node": ">= 0.8"
+	},
+	"devDependencies": {
+		"express": ">2.5.8"
+	}
+}

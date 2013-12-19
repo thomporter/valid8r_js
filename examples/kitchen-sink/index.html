@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<head>
+  <title>Valid8 - Example 1</title>
+  <script src="../vendor/jquery.js"></script>
+  <script src="../valid8r.js"></script>
+  <script src="./kitchen-sink.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../examples.css">
+</head>
+<body>
+  <form id="example-form" role="form" novalidate method="POST" class="form-horizontal container">
+    <h1>Valid8r Kitchen Sink Examples</h1>
+    <input type="hidden" name="valid8_scheme" value="example1" class="form-control">
+    <ul id="validTabs" class="nav nav-tabs">
+      <li class="active"><a href="#tab-strings" data-toggle="tab">Strings</a></li>
+      <li><a href="#tab-num" data-toggle="tab">Numbers</a></li>
+      <li><a href="#tab-cboxes" data-toggle="tab">Checkboxes & Radios</a></li>
+      <li><a href="#tab-special" data-toggle="tab">Special Fields</a></li>
+      <li><a href="#tab-custom" data-toggle="tab">Custom Validators</a></li>
+      <li><a href="#tab-conditionals" data-toggle="tab">Conditional Validation</a></li>
+      <li><a href="#tab-code" data-toggle="tab">KitchenSink JSON</a></li>
+    </ul>
+    <div class="tab-content">
+      <div id="tab-strings" class="tab-pane active fade in">
+        <div class="validator-examples"><h3>Validate Strings</h3>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="min_len" class="col-sm-3 control-label">Min Length</label>
+              <div class="col-sm-9">
+                <input id="min_len" type="text" name="min_len" class="form-control">
+                <div class="rule">{"rule":"len", "min":5}</div>
+              </div>
+            </div>
+            <div class="col-md-6">Validate the length of a value.</div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="max_len" class="col-sm-3 control-label">Max Length</label>
+              <div class="col-sm-9">
+                <input type="text" id="max_len" name="max_len" class="form-control">
+                <div class="rule">{"rule":"len", "max":20}</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="min_max_len" class="col-sm-3 control-label">Min/Max Length</label>
+              <div class="col-sm-9">
+                <input type="text" id="min_max_len" name="min_max_len" class="form-control">
+                <div class="rule">{"rule":"len", "min":5, "max":20}</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="alpha" class="col-sm-3 control-label">Alhpa</label>
+              <div class="col-sm-9">
+                <input type="text" id="alpha" name="alpha" class="form-control">
+                <div class="rule">{"rule":"isAlpha"}</div>
+              </div>
+            </div>
+            <div class="col-md-6">Validate that a value contains all alphabetic characters (a-z, A-Z)</div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="num" class="col-sm-3 control-label">Numeric</label>
+              <div class="col-sm-9">
+                <input type="text" id="num" name="num" class="form-control">
+                <div class="rule">{"rule":"isNum"}</div>
+              </div>
+            </div>
+            <div class="col-md-6">Validate that a value contains all numeric characters (0-9)</div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="num_pos" class="col-sm-3 control-label">Positive Numeric</label>
+              <div class="col-sm-9">
+                <input type="text" id="num_pos" name="num_pos" class="form-control">
+                <div class="rule">{"rule":"isNum", "nonNeg":true}</div>
+              </div>
+            </div>
+            <div class="col-md-6">Validate that a value contains a non-negative numeric number (+0-9)</div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="alnum" class="col-sm-3 control-label">AlphaNumeric</label>
+              <div class="col-sm-9">
+                <input type="text" id="alnum" name="alnum" class="form-control">
+                <div class="rule">{"rule":"isAlnum"}</div>
+              </div>
+            </div>
+            <div class="col-md-6">Validate that a value is all Alpha-numeric characters</div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="formatted_as" class="col-sm-3 control-label">Formatted</label>
+              <div class="col-sm-9">
+                <input type="text" id="formatted_as" name="formatted_as" class="form-control">
+                <div class="rule">{"rule":"formatted_as", "format":"DD/DD/DDDD"}</div>
+              </div>
+            </div>
+            <div class="col-md-6">Validate that a value matches a format of letters, numbers and other symbols.</div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="formatted_as2" class="col-sm-3 control-label">Formatted 2</label>
+              <div class="col-sm-9">
+                <input type="text" id="formatted_as2" name="formatted_as2" class="form-control">
+                <div class="rule">{"rule":"formatted_as", "format":"(DDD) DDD-DDDD"}</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="formatted_as2" class="col-sm-3 control-label">Formatted 3</label>
+              <div class="col-sm-9">
+                <input type="text" id="formatted_as3" name="formatted_as3" class="form-control">
+                <div class="rule">{"rule":"formatted_as", "format":"AADDAADDDDDD"}</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="regex" class="col-sm-3 control-label">RegEx</label>
+              <div class="col-sm-9">
+                <input type="text" id="regex" name="regex" class="form-control">
+                <div class="rule">{"rule":"regex", pattern:"[a-Z0-9.-]{2,7}", modifiers:"i"}</div>
+              </div>
+            </div>
+            <div class="col-md-6">Validate that a value using a regular expression.</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <input type="submit" value="Submit" class="pull-right btn btn-primary">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="tab-num" class="tab-pane fade">
+        <div class="validator-examples"><h3>Validate Numbers</h3>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="min_val" class="col-sm-3 control-label">Min Value</label>
+              <div class="col-sm-9">
+                <input type="text" id="min_val" name="min_val" class="form-control">
+                <div class="rule">{"rule":"val","min":5}</div>
+              </div>
+            </div>
+            <div class="col-md-6">Validate a numeric value.</div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="max_val" class="col-sm-3 control-label">Max Value</label>
+              <div class="col-sm-9">
+                <input type="text" id="max_val" name="max_val" class="form-control">
+                <div class="rule">{"rule":"val","max":10}</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="min_max_val" class="col-sm-3 control-label">Min/Max Value</label>
+              <div class="col-sm-9">
+                <input type="text" id="min_max_val" name="min_max_val" class="form-control">
+                <div class="rule">{"rule":"val","min":5,"max":10}</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="val_outside" class="col-sm-3 control-label">Value Outside</label>
+              <div class="col-sm-9">
+                <input type="text" id="val_outside" name="val_outside" class="form-control">
+                <div class="rule">{"rule":"val", "outside":[5,10]}</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <input type="submit" value="Submit" class="pull-right btn btn-primary">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="tab-special" class="tab-pane fade">
+        <div class="validator-examples"><h3>Special Validators</h3>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="email" class="col-sm-3 control-label">Email</label>
+              <div class="col-sm-9">
+                <input type="text" id="email" name="email" class="form-control">
+                <div class="rule">{"rule":"email"}</div>
+              </div>
+            </div>
+            <div class="col-md-6">Validate email addresses. (several options available on this.)</div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="url" class="col-sm-3 control-label">URL</label>
+              <div class="col-sm-9">
+                <input type="text" id="url" name="url" class="form-control">
+                <div class="rule">{"rule":"url"}</div>
+              </div>
+            </div>
+            <div class="col-md-6">Validate a URL</div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="url_protocols" class="col-sm-3 control-label">URL w/ Protocols</label>
+              <div class="col-sm-9">
+                <input type="text" id="url_protocols" name="url_protocols" class="form-control">
+                <div class="rule">{"rule":"url", "protocols":["http","https","ftp","git"]}</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="url_withoutProtocols" class="col-sm-3 control-label">URL noProtocols</label>
+              <div class="col-sm-9">
+                <div class="input-group">
+                  <div class="input-group-addon">http://</div>
+                  <input type="text" id="url_withoutProtocols" name="url_withoutProtocols" class="form-control">
+                </div>
+                <div class="rule">{"rule":"url", "noProtocols":true}</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <input type="submit" value="Submit" class="pull-right btn btn-primary">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="tab-cboxes" class="tab-pane fade">
+        <div class="validator-examples"><h3>Validate Checkoxes &amp; Radio Buttons</h3>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <input type="hidden" id="checkboxes_min_3">
+              <div class="row">
+                <label class="control-label col-sm-4">Check at least 3</label>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <label class="col-sm-3 checkbox-inline">
+                      <input type="checkbox" name="checkboxes_min_3[]" value="1">1
+                    </label>
+                    <label class="col-sm-3 checkbox-inline">
+                      <input type="checkbox" name="checkboxes_min_3[]" value="2">2
+                    </label>
+                    <label class="col-sm-3 checkbox-inline">
+                      <input type="checkbox" name="checkboxes_min_3[]" value="3">3
+                    </label>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-3 checkbox-inline">
+                      <input type="checkbox" name="checkboxes_min_3[]" value="4">4
+                    </label>
+                    <label class="col-sm-3 checkbox-inline">
+                      <input type="checkbox" name="checkboxes_min_3[]" value="5">5
+                    </label>
+                    <label class="col-sm-3 checkbox-inline">
+                      <input type="checkbox" name="checkboxes_min_3[]" value="6">6
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-offset-3 col-md-8">
+                  <div class="rule">{"rule":"checks", "min":3}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">Validate Checkboxes</div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <input type="hidden" id="checkboxes_max_3">
+              <div class="row">
+                <label class="control-label col-sm-3">Check no more than 3</label>
+                <div class="col-sm-9">
+                  <div class="row">
+                    <label class="col-sm-3 checkbox-inline">
+                      <input type="checkbox" name="checkboxes_max_3[]" value="1">1
+                    </label>
+                    <label class="col-sm-3 checkbox-inline">
+                      <input type="checkbox" name="checkboxes_max_3[]" value="2">2
+                    </label>
+                    <label class="col-sm-3 checkbox-inline">
+                      <input type="checkbox" name="checkboxes_max_3[]" value="3">3
+                    </label>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-3 checkbox-inline">
+                      <input type="checkbox" name="checkboxes_max_3[]" value="4">4
+                    </label>
+                    <label class="col-sm-3 checkbox-inline">
+                      <input type="checkbox" name="checkboxes_max_3[]" value="5">5
+                    </label>
+                    <label class="col-sm-3 checkbox-inline">
+                      <input type="checkbox" name="checkboxes_max_3[]" value="6">6
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-offset-3 col-md-8">
+                  <div class="rule">{"rule":"checks", "max":3}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <input type="hidden" id="checkboxes_min_3_max4">
+              <div class="row">
+                <label class="control-label col-sm-3">Choose 3 - 4 options:</label>
+                <div class="col-sm-9">
+                  <div class="row">
+                    <label class="col-sm-3 checkbox-inline">
+                      <input type="checkbox" name="checkboxes_min_3_max4[]" value="1">1
+                    </label>
+                    <label class="col-sm-3 checkbox-inline">
+                      <input type="checkbox" name="checkboxes_min_3_max4[]" value="2">2
+                    </label>
+                    <label class="col-sm-3 checkbox-inline">
+                      <input type="checkbox" name="checkboxes_min_3_max4[]" value="3">3
+                    </label>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-3 checkbox-inline">
+                      <input type="checkbox" name="checkboxes_min_3_max4[]" value="4">4
+                    </label>
+                    <label class="col-sm-3 checkbox-inline">
+                      <input type="checkbox" name="checkboxes_min_3_max4[]" value="5">5
+                    </label>
+                    <label class="col-sm-3 checkbox-inline">
+                      <input type="checkbox" name="checkboxes_min_3_max4[]" value="6">6
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-offset-3 col-md-8">
+                  <div class="rule">{"rule":"checks", "min":3,"max":6}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <input type="hidden" id="radios">
+              <div class="row">
+                <label class="control-label col-sm-3">Radios (required):</label>
+                <div class="col-sm-9">
+                  <div class="row">
+                    <label class="col-sm-3 checkbox-inline">
+                      <input type="radio" name="radios" value="1">1
+                    </label>
+                    <label class="col-sm-3 checkbox-inline">
+                      <input type="radio" name="radios" value="2">2
+                    </label>
+                    <label class="col-sm-3 checkbox-inline">
+                      <input type="radio" name="radios" value="3">3
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-offset-3 col-md-8">
+                  <div class="rule">{"rule":"radios"}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">Validate Radio Buttons</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <input type="submit" value="Submit" class="pull-right btn btn-primary">
+          </div>
+        </div>
+      </div>
+      <div id="tab-conditionals" class="tab-pane fade">
+        <div class="validator-examples"><h3>Conditional Validation</h3> 
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label class="col-sm-5 control-label">Validate Answer?</label>
+              <div class="col-sm-5 checkbox">
+                <label>
+                  <input type="radio" value="1" name="validate_answer" id="validate_answer">Yes
+                </label>&nbsp;
+                <label>
+                  <input type="radio" value="0" name="validate_answer" id="validate_answer">No
+                </label>
+              </div>
+            </div>
+            <div class="col-md-6">Validate only when other conditions are met.	</div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="answer" class="col-sm-5 control-label">What is 3 + 4 ?</label>
+              <div class="col-sm-2">
+                <input name="answer" id="answer" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="rule">
+                <pre>{
+"rule": "val", "is":7, 
+"when": {
+"selector": "#validate_answer:checked", // do we need this? 
+"field": "validate_next_field",
+"eq": "1"
+}
+}</pre>
+              </div>
+            </div>
+            <div class="col-md-6"></div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <input type="submit" value="Submit" class="pull-right btn btn-primary">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="tab-custom" class="tab-pane fade">
+        <div class="validator-examples"><h3>Custom Validator Functions</h3>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="custom" class="col-md-3 control-label">Custom Validator</label>
+              <div class="col-sm-9">
+                <input id="custom" type="text" name="custom" class="form-control">
+                <div class="rule">{"rule":"custom", "func":"customValidator"}</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              Validates a value against a custom validation function of your own.  The one used here requires you type the word
+              custom into the text field.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="tab-code" class="tab-pane fade">
+        <div class="validator-examples"> 
+          <h3>JSON used for the Kitchen Sink</h3>
+          <pre> {
+	"answer": {
+		"selector": "#answer",
+		"conditions" : {
+			"validate_answer": {
+				"selector": "#validate_answer:checked",
+				"field": "validate_answer",
+				"is" : "1"
+			}
+		},
+		"rules": [
+			{"rule": "required", "when": "validate_answer", "errStr": "Please enter an answer."},
+			{"rule": "val", "is": 7, "when": "validate_answer", "errStr" : "Wrong answer, please try again."}
+		]
+	},
+	"custom": {
+		"selector": "#custom",
+		"rules": [
+			{"rule":"custom", "func":"customValidator"}
+		]
+	},
+	"min_len": {
+		"selector": "#min_len",
+		"rules": [
+			{"rule":"len", "min":5, "errStr": "Please enter at least 5 characters."}
+		]
+	},
+	"max_len": {
+		"selector": "#max_len",
+		"rules": [
+			{"rule":"len", "max":20, "errStr": "Please enter no more than 20 characters."}
+		]
+	},
+	"min_max_len": {
+		"selector": "#min_max_len",
+		"rules": [
+			{"rule":"len", "min":5,"max":20, "errStr": "Please enter between 5 and 20 characters."}
+		]
+	},
+	"alpha":{
+		"selector": "#alpha",
+		"rules": [
+			{"rule":"isAlpha", "errStr": "Please enter letters only."}
+		]
+	},
+	"num":{
+		"selector": "#num",
+		"rules": [
+			{"rule":"isNum", "errStr": "Please enter numbers only."}
+		]
+	},
+	"num_pos":{
+		"selector": "#num_pos",
+		"rules": [
+			{"rule":"isNum", "nonNeg":true, "errStr": "Please enter numbers only."}
+		]
+	},
+	"alnum":{
+		"selector": "#alnum",
+		"rules": [
+			{"rule":"isAlnum", "errStr": "Please enter letters and numbers only."}
+		]
+	},
+	"formatted_as":{
+		"selector": "#formatted_as",
+		"rules": [
+			{"rule":"formattedAs", "format":"DD/DD/DDDD"}
+		]
+	},
+	"formatted_as2":{
+		"selector": "#formatted_as2",
+		"rules": [
+			{"rule":"formattedAs", "format":"(DDD) DDD-?DDDD"}
+		]
+	},
+	"formatted_as3":{
+		"selector": "#formatted_as3",
+		"rules": [
+			{"rule":"formattedAs", "format":"AADDAADDDDDD"}
+		]
+	},
+	"regex":{
+		"selector": "#regex",
+		"rules": [
+			{"rule":"regex", "pattern":"[A-z0-9.-]{2,7}", "modifiers":"i"}
+		]
+	},
+	"min_val":{
+		"selector": "#min_val",
+		"rules": [
+			{"rule":"val","min":5, "errStr": "Must be a minimum of 5.", "nanErrStr": "Please enter a number."}
+		]
+	},
+	"max_val":{
+		"selector": "#max_val",
+		"rules": [
+			{"rule":"val","max":10, "errStr": "Must be a maximum of 10.", "nanErrStr": "Please enter a number."}
+		]
+	},
+	"min_max_val":{
+		"selector": "#min_max_val",
+		"rules": [
+			{"rule":"val","min":5, "max":10, "errStr": "Must be a minimum of 5 and maximum of 10.", "nanErrStr": "Please enter a number."}
+		]
+	},
+	"val_outside":{
+		"selector": "#val_outside",
+		"rules": [
+			{"rule":"val","outside":[5,10]}
+		]
+	},
+	"email":{
+		"selector": "#email",
+		"rules": [
+			{"rule":"email"}
+		]
+	},
+	"url":{
+		"selector": "#url",
+		"rules": [
+			{"rule":"url"}
+		]
+	},
+	"url_protocols":{
+		"selector": "#url_protocols",
+		"rules": [
+			{"rule":"url", "protocols":["http","https","ftp","git"]}
+		]
+	},
+	"url_withoutProtocols":{
+		"selector": "#url_withoutProtocols",
+		"rules": [
+			{"rule":"url","noProtocols": true}
+		]
+	},
+	"checkboxes_min_3" : {
+		"selector": "input[name=\"checkboxes_min_3[]\"]",
+		"type":"checks",
+		"rules" : [
+			{"rule":"checks","min":3}
+		]
+	},
+	"checkboxes_max_3" : {
+		"selector": "input[name=\"checkboxes_max_3[]\"]",
+		"type":"checks",
+		"rules" : [
+			{"rule":"checks","max":3}
+		]
+	},
+	"checkboxes_min_3_max4" : {
+		"selector": "input[name=\"checkboxes_min_3_max4[]\"]",
+		"type":"checks",
+		"rules" : [
+			{"rule":"checks","min":3,"max":4}
+		]
+	},
+	"radios":{
+		"selector": "input[name=\"radios\"]",
+		"type":"radios",
+		"rules": [
+			{"rule":"radios"}
+		]
+	}
+	
+}
+</pre>
+        </div>
+      </div>
+    </div>
+  </form>
+  <script>
+    $(function() {
+     $('#validTabs a[href="#tag-strings"]').tab('show')
+     $('#validTabs a').click(function (e) {
+      e.preventDefault()
+      $(this).tab('show')
+     })
+    })
+  </script>
+</body>

@@ -1,0 +1,19 @@
+{
+	"name": "valid8r_javascript",
+	"version": "1.0.0",
+	"main": [
+		"./js/valid8r.js"
+	],
+	"ignore": [
+		"**/.*",
+		"_*",
+		"examples",
+		"dist/php",
+		"index.php",
+		"composer.json",
+		"*.html"
+	],
+	"dependencies": {
+		"jquery": ">= 1.9.0"
+	}
+}
