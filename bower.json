@@ -1,6 +1,6 @@
 {
-	"name": "valid8r_javascript",
-	"version": "1.0.0",
+	"name": "valid8r_js",
+	"version": "0.0.2",
 	"main": [
 		"./js/valid8r.js"
 	],
@@ -8,7 +8,9 @@
 		"**/.*",
 		"_*",
 		"examples",
-		"dist/php",
+		"tests",
+		"Makefile",
+		"Makefile",
 		"index.php",
 		"composer.json",
 		"*.html"
