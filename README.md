@@ -16,7 +16,7 @@ testing, examples, etc, you can simply grab the `valid8r.js` file from the
 
 https://raw.github.com/thomporter/valid8r_js/master/lib/valid8r.js
 
-Alternatively, you can clone this rep and get examples, a Node Server to run them
+Alternatively, you can clone this repo and get examples, a Node Server to run them
 and the source files (written in CoffeeScript.)
 
 Or install with Bower:
