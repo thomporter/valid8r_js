@@ -19,7 +19,9 @@ https://raw.github.com/thomporter/valid8r_js/master/lib/valid8r.js
 Alternatively, you can clone this rep and get examples, a Node Server to run them
 and the source files (written in CoffeeScript.)
 
-Bower support is planned...
+Or install with Bower:
+
+	bower install valid8r_js
 
 ## Examples
 
