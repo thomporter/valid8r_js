@@ -203,9 +203,11 @@ window.Valid8r = Valid8r = class Valid8r
         return true
         
     validFormat: (field, value, rule, cb) ->
-        if value != '' 
-            format_re = rule.format.replace(/D/g,"\\d").replace(/A/g,"[A-Z]").replace(/(\(|\))/g, '\\$1')
-            if not value.match(format_re)
+
+        if value != ''
+            re = @preg_quote(rule.format)
+            re = re.replace(/D/g, '\\d').replace(/A/g, '[a-zA-Z]')
+            if not value.match(re)
                 cb(field, rule.errStr || 'Does not match required format of: ' + rule.format)
                 return false
         cb(field)
