@@ -14,7 +14,7 @@ Valid8r for JavaScript really only has one file you need.  If you don't care abo
 testing, examples, etc, you can simply grab the `valid8r.js` file from the
 `lib` folder: 
 
-https://githb.com/thomporter/valid8r_js/lib/valid8r.js
+https://raw.github.com/thomporter/valid8r_js/master/lib/valid8r.js
 
 Alternatively, you can clone this rep and get examples, a Node Server to run them
 and the source files (written in CoffeeScript.)
