@@ -26,4 +26,3 @@ $ ->
     $.get('./kitchen-sink.json', (d) ->
         valid.setRules(d)
     ,'json')
-    

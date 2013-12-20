@@ -46,6 +46,7 @@ window.Valid8r = Valid8r = class Valid8r
             data: {}
             form: ''
         @options = $.extend defaults, options
+        @setRules(@options.rules) if @options.rules
         @callback = @options.callback
         @options.callback = undefined
         @validatingOnBlur = false
@@ -72,20 +73,22 @@ window.Valid8r = Valid8r = class Valid8r
             
     setRules: (rules) ->
         @options.rules = rules
-        if @options.bindToBlur 
-            @bindRules()
-    
-    setCallback: (cb) ->
-        @callback = cb
-        
-    bindRules: ->
         $.each @options.rules, (f,o) =>
-            if o.selector && not o.doNotBind
+            
+            # add selector if necessary
+            if not o.selector
+                o.selector = @options.rules[f].selector = '#'+f
+            
+            # bind to blur event if necessary
+            if @options.bindToBlur && not o.doNotBind
                 if o.type == 'checks' || o.type == 'radios'
                     $(o.selector).on('click', @validateOnBlur).data('valid8r_field',f)
                 else
                     $(o.selector).on('blur', @validateOnBlur).data('valid8r_field',f)
-            
+    
+    setCallback: (cb) ->
+        @callback = cb
+        
 
     satisfiesConditions: (r, rule) ->
         c = r.conditions[rule.when]

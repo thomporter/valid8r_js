@@ -56,6 +56,9 @@ window.Valid8r = Valid8r = Valid8r = (function() {
       form: ''
     };
     this.options = $.extend(defaults, options);
+    if (this.options.rules) {
+      this.setRules(this.options.rules);
+    }
     this.callback = this.options.callback;
     this.options.callback = void 0;
     this.validatingOnBlur = false;
@@ -91,20 +94,13 @@ window.Valid8r = Valid8r = Valid8r = (function() {
   };
 
   Valid8r.prototype.setRules = function(rules) {
-    this.options.rules = rules;
-    if (this.options.bindToBlur) {
-      return this.bindRules();
-    }
-  };
-
-  Valid8r.prototype.setCallback = function(cb) {
-    return this.callback = cb;
-  };
-
-  Valid8r.prototype.bindRules = function() {
     var _this = this;
+    this.options.rules = rules;
     return $.each(this.options.rules, function(f, o) {
-      if (o.selector && !o.doNotBind) {
+      if (!o.selector) {
+        o.selector = _this.options.rules[f].selector = '#' + f;
+      }
+      if (_this.options.bindToBlur && !o.doNotBind) {
         if (o.type === 'checks' || o.type === 'radios') {
           return $(o.selector).on('click', _this.validateOnBlur).data('valid8r_field', f);
         } else {
@@ -112,6 +108,10 @@ window.Valid8r = Valid8r = Valid8r = (function() {
         }
       }
     });
+  };
+
+  Valid8r.prototype.setCallback = function(cb) {
+    return this.callback = cb;
   };
 
   Valid8r.prototype.satisfiesConditions = function(r, rule) {
