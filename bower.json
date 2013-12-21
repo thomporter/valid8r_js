@@ -1,9 +1,10 @@
 {
 	"name": "valid8r_js",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"main": [
 		"./js/valid8r.js"
 	],
+	"keywords":["validation","validate","form validation"],
 	"ignore": [
 		"**/.*",
 		"_*",

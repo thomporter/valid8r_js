@@ -1,7 +1,7 @@
 {
 	"name": "valid8r_js",
 	"description": "JavaScript version of the Valid8r library",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"keywords": ["validation"],
 	"homepage": "http://thomporter.com/valid8r",
 	"author": "Thom Porter",
