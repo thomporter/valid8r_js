@@ -45,7 +45,7 @@ window.Valid8r = Valid8r = class Valid8r
             rules: {}
             data: {}
             form: ''
-        @options = $.extend defaults, options
+        @options = jQuery.extend defaults, options
         @setRules(@options.rules) if @options.rules
         @callback = @options.callback
         @options.callback = undefined
@@ -54,7 +54,7 @@ window.Valid8r = Valid8r = class Valid8r
         
         if not @options.form
             alert('INVALID VALID8R SETUP: You must pass a selector for your form!')
-        @form = $(options.form)
+        @form = jQuery(options.form)
         @form.on('submit', @submitForm)
 
     submitForm: (e) =>
@@ -62,7 +62,7 @@ window.Valid8r = Valid8r = class Valid8r
         @submittedOnce = true
         num_err = 0
         for f,r of @options.rules
-            @validate(f, $(r.selector).val(), (field,err) =>
+            @validate(f, jQuery(r.selector).val(), (field,err) =>
                 if err
                     num_err++
                     @callback(field, err)
@@ -73,7 +73,7 @@ window.Valid8r = Valid8r = class Valid8r
             
     setRules: (rules) ->
         @options.rules = rules
-        $.each @options.rules, (f,o) =>
+        jQuery.each @options.rules, (f,o) =>
             
             # add selector if necessary
             if not o.selector
@@ -82,9 +82,9 @@ window.Valid8r = Valid8r = class Valid8r
             # bind to blur event if necessary
             if @options.bindToBlur && not o.doNotBind
                 if o.type == 'checks' || o.type == 'radios'
-                    $(o.selector).on('click', @validateOnBlur).data('valid8r_field',f)
+                    jQuery(o.selector).on('click', @validateOnBlur).data('valid8r_field',f)
                 else
-                    $(o.selector).on('blur', @validateOnBlur).data('valid8r_field',f)
+                    jQuery(o.selector).on('blur', @validateOnBlur).data('valid8r_field',f)
     
     setCallback: (cb) ->
         @callback = cb
@@ -93,13 +93,13 @@ window.Valid8r = Valid8r = class Valid8r
     satisfiesConditions: (r, rule) ->
         c = r.conditions[rule.when]
         sel = c.selector || '#' + c.field;
-        v = $(sel).val();
+        v = jQuery(sel).val();
         return v == c.is
         
     validateOnBlur: (e) =>
         @validatingOnBlur = true
-        f = $(e.target).data('valid8r_field')
-        v = $(e.target).val()
+        f = jQuery(e.target).data('valid8r_field')
+        v = jQuery(e.target).val()
         @validate(f, v, @callback)
         
     validate: (field, value, cb) =>
@@ -153,7 +153,7 @@ window.Valid8r = Valid8r = class Valid8r
         return true
     validRadios: (field, parent_rule, rule, cb) ->
         sel = parent_rule.selector || 'input[name="' + field + '"]'
-        if not $(sel+':checked').length
+        if not jQuery(sel+':checked').length
             cb(field, rule.errStr || 'Please choose a value.')
             return false
         cb(field)
@@ -289,7 +289,7 @@ window.Valid8r = Valid8r = class Valid8r
 
     validChecks: (field, parent_rule, rule, cb) ->
         sel = parent_rule.selector || 'input[name="' + field + '"]:checked'
-        num_checked = $(sel+':checked').length
+        num_checked = jQuery(sel+':checked').length
 
         if rule.min && rule.max
             if rule.min > num_checked || rule.max < num_checked

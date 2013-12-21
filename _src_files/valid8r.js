@@ -55,7 +55,7 @@ window.Valid8r = Valid8r = Valid8r = (function() {
       data: {},
       form: ''
     };
-    this.options = $.extend(defaults, options);
+    this.options = jQuery.extend(defaults, options);
     if (this.options.rules) {
       this.setRules(this.options.rules);
     }
@@ -66,7 +66,7 @@ window.Valid8r = Valid8r = Valid8r = (function() {
     if (!this.options.form) {
       alert('INVALID VALID8R SETUP: You must pass a selector for your form!');
     }
-    this.form = $(options.form);
+    this.form = jQuery(options.form);
     this.form.on('submit', this.submitForm);
   }
 
@@ -79,7 +79,7 @@ window.Valid8r = Valid8r = Valid8r = (function() {
     _ref = this.options.rules;
     for (f in _ref) {
       r = _ref[f];
-      this.validate(f, $(r.selector).val(), function(field, err) {
+      this.validate(f, jQuery(r.selector).val(), function(field, err) {
         if (err) {
           num_err++;
           return _this.callback(field, err);
@@ -96,15 +96,15 @@ window.Valid8r = Valid8r = Valid8r = (function() {
   Valid8r.prototype.setRules = function(rules) {
     var _this = this;
     this.options.rules = rules;
-    return $.each(this.options.rules, function(f, o) {
+    return jQuery.each(this.options.rules, function(f, o) {
       if (!o.selector) {
         o.selector = _this.options.rules[f].selector = '#' + f;
       }
       if (_this.options.bindToBlur && !o.doNotBind) {
         if (o.type === 'checks' || o.type === 'radios') {
-          return $(o.selector).on('click', _this.validateOnBlur).data('valid8r_field', f);
+          return jQuery(o.selector).on('click', _this.validateOnBlur).data('valid8r_field', f);
         } else {
-          return $(o.selector).on('blur', _this.validateOnBlur).data('valid8r_field', f);
+          return jQuery(o.selector).on('blur', _this.validateOnBlur).data('valid8r_field', f);
         }
       }
     });
@@ -118,15 +118,15 @@ window.Valid8r = Valid8r = Valid8r = (function() {
     var c, sel, v;
     c = r.conditions[rule.when];
     sel = c.selector || '#' + c.field;
-    v = $(sel).val();
+    v = jQuery(sel).val();
     return v === c.is;
   };
 
   Valid8r.prototype.validateOnBlur = function(e) {
     var f, v;
     this.validatingOnBlur = true;
-    f = $(e.target).data('valid8r_field');
-    v = $(e.target).val();
+    f = jQuery(e.target).data('valid8r_field');
+    v = jQuery(e.target).val();
     return this.validate(f, v, this.callback);
   };
 
@@ -255,7 +255,7 @@ window.Valid8r = Valid8r = Valid8r = (function() {
   Valid8r.prototype.validRadios = function(field, parent_rule, rule, cb) {
     var sel;
     sel = parent_rule.selector || 'input[name="' + field + '"]';
-    if (!$(sel + ':checked').length) {
+    if (!jQuery(sel + ':checked').length) {
       cb(field, rule.errStr || 'Please choose a value.');
       return false;
     }
@@ -438,7 +438,7 @@ window.Valid8r = Valid8r = Valid8r = (function() {
   Valid8r.prototype.validChecks = function(field, parent_rule, rule, cb) {
     var num_checked, sel;
     sel = parent_rule.selector || 'input[name="' + field + '"]:checked';
-    num_checked = $(sel + ':checked').length;
+    num_checked = jQuery(sel + ':checked').length;
     if (rule.min && rule.max) {
       if (rule.min > num_checked || rule.max < num_checked) {
         cb(field, rule.errStr || 'Please check between ' + rule.min + ' and ' + rule.max + ' options.');
