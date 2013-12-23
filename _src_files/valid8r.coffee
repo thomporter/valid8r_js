@@ -138,6 +138,7 @@ window.Valid8r = Valid8r = class Valid8r
                 err = window[rule.func](field, value)
         if (err == '__ERR_NEVER_SET__')
             cb(field,'Invalid Custom Function: ' + rule.func)
+            return false;
         else if (err isnt '')
             cb(field, err)
             return false;

@@ -1,8 +1,8 @@
 {
 	"name": "valid8r_js",
 	"description": "JavaScript version of the Valid8r library",
-	"version": "0.0.5",
-	"keywords": ["validation"],
+	"version": "0.0.6",
+	"keywords": ["validation","validate","form validation"],
 	"homepage": "http://thomporter.com/valid8r",
 	"author": "Thom Porter",
 	"repository": {
