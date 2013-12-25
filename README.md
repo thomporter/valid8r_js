@@ -67,3 +67,7 @@ to the window.  The former being the recommended method:
 ## Tests
 
 I will be adding Mocha browser test to this repo shortly.
+
+## TODO
+
+* Need to find a good way to deal with asynchronous validation with the form submitting...
