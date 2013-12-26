@@ -58,20 +58,31 @@ to the window.  The former being the recommended method:
 	  data: req.body,
 	  customValidators: {
 	    customValidator: require('./customValidator'),
-	    anotherCustomValidator: function(field, error) {
-	      return (field != 'someCustomValue') ? 'Please try again.' : ''
+	    anotherCustomValidator: function(field, error, cb) {
+	      if (field != 'someCustomValue') {
+	        cb(field, 'Some Custom Errror');
+	        return false;
+	      } 
+	      cb(field);
+          return true;
 	    }
 	  }
 	}
 
-## Tests
+## Asynchronous Validation (via AJAX)
+**Updated in v0.0.7** - The Custom Validators in the JavaScript module now
+receive a third argument - the callback function.  They are responsible for
+calling this function on their own (allowing for asynchronous validation.)
+It is important to note that you should make any custom validators performing
+asynchronous calls the last rule in their set, and should add an `async` 
+property to the rule, equal to `true`:
 
-I will be adding Mocha browser test to this repo shortly.
+	{ "rule": "custom", "func":"myAsynchronousValidator", "async":true} 
+
+**Asynchronous validators will not be run on submit!** After all, how silly is 
+it to go to the server to validate one piece of data before submitting all of 
+the data to the server?
 
 ## TODO
 
-* ~~Need to find a good way to deal with asynchronous validation with the form submitting...~~ 
-It occurred to me that I don't need to find a way to do the validation, but
-skip it - after all, how silly is it to go to the server to validate one piece of 
-data before submitting all of the data to the server?  Instead, we need a 
-"skipOnSubmit" property added to custom rules.
+* Mocha browser tests
