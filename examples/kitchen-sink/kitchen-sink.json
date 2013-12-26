@@ -109,6 +109,21 @@
 			{"rule":"url"}
 		]
 	},
+	"ip":{
+		"rules": [
+			{"rule":"ip"}
+		]
+	},
+	"ipv4":{
+		"rules": [
+			{"rule":"ip","v":4}
+		]
+	},
+	"ipv6":{
+		"rules": [
+			{"rule":"ip","v":6}
+		]
+	},
 	"url_protocols":{
 		"rules": [
 			{"rule":"url", "protocols":["http","https","ftp","git"]}
