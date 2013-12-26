@@ -3,7 +3,7 @@
   <title>Valid8 - Example 1</title>
   <meta name="description" content="JavaScript Validation module for Valid8r.">
   <script src="../vendor/jquery.js"></script>
-  <script src="../valid8r.js"></script>
+  <script src="../../_src_files/valid8r.js"></script>
   <script src="./kitchen-sink.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
@@ -443,6 +443,24 @@
               custom into the text field.
             </div>
           </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="custom" class="col-md-3 control-label">Custom Asyncronous Validator</label>
+              <div class="col-sm-9">
+                <input id="custom_async" type="text" name="custom_async" class="form-control">
+                <div class="rule">{"rule":"custom", "func":"customAsynchronousValidator", "async":"true"}</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              Validates a value against a custom validation function of your own.  The <code>async</code> property tells 
+              Valid8r that your function uses AJAX to perform validation, and to skip it when validating the form onSubmit.
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <input type="submit" value="Submit" class="pull-right btn btn-primary">
+            </div>
+          </div>
         </div>
       </div>
       <div id="tab-code" class="tab-pane fade">
@@ -467,6 +485,11 @@
 		"selector": "#custom",
 		"rules": [
 			{"rule":"custom", "func":"customValidator"}
+		]
+	},
+	"custom_async": {
+		"rules": [
+			{"rule":"custom", "func":"customAsynchronousValidator"}
 		]
 	},
 	"min_len": {

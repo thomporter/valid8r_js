@@ -3,7 +3,7 @@ head
 	title Valid8 - Example 1
 	meta(name="description", content="JavaScript Validation module for Valid8r.") 
 	script(src="../vendor/jquery.js")
-	script(src="../valid8r.js")
+	script(src="../../_src_files/valid8r.js")
 	script(src="./kitchen-sink.js")
 	script(src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js")
 	link(rel="stylesheet",href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css")
@@ -350,6 +350,17 @@ body
 								.rule {"rule":"custom", "func":"customValidator"}
 						.col-md-6 Validates a value against a custom validation function of your own.  The one used here requires you type the word
 							| custom into the text field.
+					.form-group.row
+						.col-md-6
+							label.col-md-3.control-label(for="custom") Custom Asyncronous Validator
+							.col-sm-9
+								input#custom_async.form-control(type="text",name="custom_async")
+								.rule {"rule":"custom", "func":"customAsynchronousValidator", "async":"true"}
+						.col-md-6 Validates a value against a custom validation function of your own.  The <code>async</code> property tells 
+							| Valid8r that your function uses AJAX to perform validation, and to skip it when validating the form onSubmit.
+					.row
+						.col-md-6
+							input.pull-right.btn.btn-primary(type="submit",value="Submit")
 			.tab-pane.fade#tab-code
 				.validator-examples 
 					h3 JSON used for the Kitchen Sink

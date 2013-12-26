@@ -19,6 +19,11 @@
 			{"rule":"custom", "func":"customValidator"}
 		]
 	},
+	"custom_async": {
+		"rules": [
+			{"rule":"custom", "func":"customAsynchronousValidator"}
+		]
+	},
 	"min_len": {
 		"rules": [
 			{"rule":"len", "min":5, "errStr": "Please enter at least 5 characters."}

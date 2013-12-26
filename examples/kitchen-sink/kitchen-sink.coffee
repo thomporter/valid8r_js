@@ -1,7 +1,20 @@
-customValidator = (field, value) ->
-    console.log 'Custom Validator called with: ', field,  value
-    return 'Example error from custom validator.' if (value != 'custom')
-    return ''
+customValidator = (field, value, cb) ->
+    if (value != 'custom')
+        cb(field, 'Example error from custom validator.')
+        return false
+    cb(field);
+    return true;
+
+customAsynchronousValidator = (field, value, cb) ->
+    $.get('./customAsynchronousValidator.php', {field: field, value: value}, (d) ->
+        if (d.err) 
+            cb(field, d.err)
+        else 
+            cb(field);
+    , 'json').error(->
+        cb(field,'AJAX Error - custom validator requires ./customAsynchronousValidator.php to be working.')
+    )
+    return false;
 
 $ ->
     valid = new Valid8r
