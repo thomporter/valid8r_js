@@ -33,9 +33,6 @@ window.Valid8r = Valid8r = class Valid8r
         email_default: /^[A-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\.[A-z0-9!#$%&\'*+\/=?^_`{|}~-]+)*@(?:[A-z0-9](?:[A-z0-9-]*[A-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$/
         email_rfc5322: /(?:[A-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\.[A-z0-9!#$%&\'*+\/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[A-z0-9](?:[A-z0-9-]*[A-z0-9])?\.)+[A-z0-9](?:[A-z0-9-]*[A-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[A-z0-9-]*[A-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
         
-    # this can be gotten rid of i believe, just need to break the rules loop 
-    # on error, instead of "continue" when @lastResult[field]
-    lastResult: {}
     constructor: (options) ->
         defaults=
             bindToBlur: false
@@ -108,8 +105,7 @@ window.Valid8r = Valid8r = class Valid8r
             return cb(field, 'Not Setup in Rules')
         num_rules = 0
         for rule in r.rules
-            continue if (rule.when and not @satisfiesConditions(r, rule))
-            continue if (@lastResult[field] == false)
+            continue if (rule.async and not @validatingOnBlur) || (rule.when and not @satisfiesConditions(r, rule)) 
             num_rules++
             switch rule.rule
                 when "required" then if not @validRequired(field, value, rule, cb) then return false;
@@ -125,25 +121,22 @@ window.Valid8r = Valid8r = class Valid8r
                 when "checks" then if not @validChecks(field, r, rule, cb) then return;
                 when "radios" then if not @validRadios(field, r, rule, cb) then return false;
                 when "custom" then if not @validCustom(field, value, rule, cb) then return false;
-                else cb(field) if num_rules == 0
-                    
+                else cb(field, 'Invalid Validator: ' + rule.rule) 
+                
     validCustom: (field, value, rule, cb) ->
-        err = '__ERR_NEVER_SET__'
         if (rule.func && typeof rule.func is 'function')
-            err = rule.func(field, value);
+            return rule.func(field, value, cb);
         else if (rule.func && typeof rule.func is 'string')
             if (@options.customValidators[rule.func])
-                err = @options.customValidators[rule.func](field, value)
+                return @options.customValidators[rule.func](field, value, cb)
             else if (typeof window[rule.func] is 'function')
-                err = window[rule.func](field, value)
-        if (err == '__ERR_NEVER_SET__')
+                return window[rule.func](field, value, cb)
+            else
+                cb(field,'Invalid Custom Function: ' + rule.func)
+                return false;
+        else
             cb(field,'Invalid Custom Function: ' + rule.func)
             return false;
-        else if (err isnt '')
-            cb(field, err)
-            return false;
-        cb(field)
-        return true;
             
             
     validRequired: (field, value, rule, cb) ->
