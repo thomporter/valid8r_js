@@ -70,4 +70,8 @@ I will be adding Mocha browser test to this repo shortly.
 
 ## TODO
 
-* Need to find a good way to deal with asynchronous validation with the form submitting...
+* ~~Need to find a good way to deal with asynchronous validation with the form submitting...~~ 
+It occurred to me that I don't need to find a way to do the validation, but
+skip it - after all, how silly is it to go to the server to validate one piece of 
+data before submitting all of the data to the server?  Instead, we need a 
+"skipOnSubmit" property added to custom rules.
