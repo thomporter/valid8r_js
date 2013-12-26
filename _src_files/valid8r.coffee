@@ -32,6 +32,9 @@ window.Valid8r = Valid8r = class Valid8r
         email_simple: /^[^@]+@[A-z0-9_-]+\.[A-z0-9_.-]{2,}$/
         email_default: /^[A-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\.[A-z0-9!#$%&\'*+\/=?^_`{|}~-]+)*@(?:[A-z0-9](?:[A-z0-9-]*[A-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$/
         email_rfc5322: /(?:[A-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\.[A-z0-9!#$%&\'*+\/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[A-z0-9](?:[A-z0-9-]*[A-z0-9])?\.)+[A-z0-9](?:[A-z0-9-]*[A-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[A-z0-9-]*[A-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+        ipv4: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
+        ipv6: /^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/
+        
         
     constructor: (options) ->
         defaults=
@@ -121,6 +124,7 @@ window.Valid8r = Valid8r = class Valid8r
                 when "checks" then if not @validChecks(field, r, rule, cb) then return;
                 when "radios" then if not @validRadios(field, r, rule, cb) then return false;
                 when "custom" then if not @validCustom(field, value, rule, cb) then return false;
+                when "ip" then if not @validIp(field, value, rule, cb) then return false;
                 else cb(field, 'Invalid Validator: ' + rule.rule) 
                 
     validCustom: (field, value, rule, cb) ->
@@ -145,11 +149,25 @@ window.Valid8r = Valid8r = class Valid8r
             return false
         cb(field)
         return true
+        
     validRadios: (field, parent_rule, rule, cb) ->
         sel = parent_rule.selector || 'input[name="' + field + '"]'
         if not jQuery(sel+':checked').length
             cb(field, rule.errStr || 'Please choose a value.')
             return false
+        cb(field)
+        return true
+        
+    validIp: (field, value, rule, cb) ->
+        if value
+            if rule.v
+                if not value.match(@res['ipv'+rule.v])
+                    cb(field, rule.errStr || 'Invalid IP Address')
+                    return false
+            else
+                if not value.match(@res.ipv4) && not value.match(@res.ipv6)
+                    cb(field, rule.errStr || 'Invalid IP Address')
+                    return false
         cb(field)
         return true
         
