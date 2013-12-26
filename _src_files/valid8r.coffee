@@ -52,10 +52,9 @@ window.Valid8r = Valid8r = class Valid8r
         @validatingOnBlur = false
         @submittedOnce = false
         
-        if not @options.form
-            alert('INVALID VALID8R SETUP: You must pass a selector for your form!')
-        @form = jQuery(options.form)
-        @form.on('submit', @submitForm)
+        if @options.form
+            @form = jQuery(options.form)
+            @form.on('submit', @submitForm)
 
     submitForm: (e) =>
         @validatingOnBlur = false
@@ -257,7 +256,7 @@ window.Valid8r = Valid8r = class Valid8r
                     cb(field, rule.errStr || 'Please enter a number less than or equal to ' + rule.max)
                     return false
             if rule.outside
-                if (v >= rule.outside[0] || v <= rule.outside[1])
+                if (v >= rule.outside[0] && v <= rule.outside[1])
                     cb(field, rule.errStr || 'Please enter a number outside of ' + rule.outside[0] + '-' + rule.outside[1])
                     return false
         cb(field)
