@@ -442,6 +442,9 @@ window.Valid8r = Valid8r = Valid8r = (function() {
           cb(field, rule.errStr || 'Pleaes enter a URL without protocols (eg, http://, https://, etc.)');
           return false;
         }
+      } else if (!matches[2]) {
+        cb(field, rule.errStr || 'Pleaes enter a URL with a protocol (eg, http://, https://, etc.)');
+        return false;
       }
     }
     cb(field);

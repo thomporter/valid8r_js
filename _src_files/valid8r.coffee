@@ -293,7 +293,10 @@ window.Valid8r = Valid8r = class Valid8r
                 if matches[2]
                     cb(field, rule.errStr || 'Pleaes enter a URL without protocols (eg, http://, https://, etc.)')
                     return false
-            
+            else if not matches[2]
+                cb(field, rule.errStr || 'Pleaes enter a URL with a protocol (eg, http://, https://, etc.)')
+                return false
+                
         cb field
         return true
             
