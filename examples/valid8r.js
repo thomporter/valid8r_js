@@ -63,11 +63,10 @@ window.Valid8r = Valid8r = Valid8r = (function() {
     this.options.callback = void 0;
     this.validatingOnBlur = false;
     this.submittedOnce = false;
-    if (!this.options.form) {
-      alert('INVALID VALID8R SETUP: You must pass a selector for your form!');
+    if (this.options.form) {
+      this.form = jQuery(options.form);
+      this.form.on('submit', this.submitForm);
     }
-    this.form = jQuery(options.form);
-    this.form.on('submit', this.submitForm);
   }
 
   Valid8r.prototype.submitForm = function(e) {
@@ -392,7 +391,7 @@ window.Valid8r = Valid8r = Valid8r = (function() {
         }
       }
       if (rule.outside) {
-        if (v >= rule.outside[0] || v <= rule.outside[1]) {
+        if (v >= rule.outside[0] && v <= rule.outside[1]) {
           cb(field, rule.errStr || 'Please enter a number outside of ' + rule.outside[0] + '-' + rule.outside[1]);
           return false;
         }
@@ -443,6 +442,9 @@ window.Valid8r = Valid8r = Valid8r = (function() {
           cb(field, rule.errStr || 'Pleaes enter a URL without protocols (eg, http://, https://, etc.)');
           return false;
         }
+      } else if (!matches[2]) {
+        cb(field, rule.errStr || 'Pleaes enter a URL with a protocol (eg, http://, https://, etc.)');
+        return false;
       }
     }
     cb(field);
@@ -453,6 +455,7 @@ window.Valid8r = Valid8r = Valid8r = (function() {
     var num_checked, sel;
     sel = parent_rule.selector || 'input[name="' + field + '"]:checked';
     num_checked = jQuery(sel + ':checked').length;
+    console.log(field, sel, num_checked);
     if (rule.min && rule.max) {
       if (rule.min > num_checked || rule.max < num_checked) {
         cb(field, rule.errStr || 'Please check between ' + rule.min + ' and ' + rule.max + ' options.');

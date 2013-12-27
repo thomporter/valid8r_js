@@ -1,0 +1,53 @@
+!!!5
+head
+	meta(charset="utf-8")
+	title Valid8r Examples
+	link(rel="stylesheet", href="vendor/mocha.css")
+body
+	div#mocha
+	div(style="display:none;")
+		// min checks error: 2 checkboxes
+		input(type="checkbox", name="min_checked_err[]", value="1", checked)
+		input(type="checkbox", name="min_checked_err[]", value="1", checked)
+		// min checks success: 3 checkboxes
+		input(type="checkbox", name="min_checked_suc[]", value="1", checked)
+		input(type="checkbox", name="min_checked_suc[]", value="1", checked)
+		input(type="checkbox", name="min_checked_suc[]", value="1", checked)
+		// max checks err: 5 checkboxes
+		input(type="checkbox", name="max_checked_err[]", value="1", checked)
+		input(type="checkbox", name="max_checked_err[]", value="1", checked)
+		input(type="checkbox", name="max_checked_err[]", value="1", checked)
+		input(type="checkbox", name="max_checked_err[]", value="1", checked)
+		input(type="checkbox", name="max_checked_err[]", value="1", checked)
+		// max checks success: 4 checkboxes
+		input(type="checkbox", name="max_checked_suc[]", value="1", checked)
+		input(type="checkbox", name="max_checked_suc[]", value="1", checked)
+		input(type="checkbox", name="max_checked_suc[]", value="1", checked)
+		input(type="checkbox", name="max_checked_suc[]", value="1", checked)
+	
+		// min_max checks err: 1 checkboxes
+		input(type="checkbox", name="min_max_checked_err[]", value="1", checked)
+	
+		// min_max checks success: 4 checkboxes
+		input(type="checkbox", name="min_max_checked_suc[]", value="1", checked)
+		input(type="checkbox", name="min_max_checked_suc[]", value="1", checked)
+		input(type="checkbox", name="min_max_checked_suc[]", value="1", checked)
+		input(type="checkbox", name="min_max_checked_suc[]", value="1", checked)
+	
+	
+	script(src="vendor/require.js")
+	script(src="vendor/jquery.js")
+	script(src="vendor/expect.js")
+	script(src="vendor/mocha.js")
+	script(src="valid8r.js")
+	script.
+		mocha.setup('bdd')
+	script(src="./tests/numbers.js")
+	script(src="./tests/special_fields.js")
+	script(src="./tests/strings.js")
+	script(src="./tests/checkboxes.js")
+
+	script.
+		mocha.checkLeaks();
+		mocha.globals(['jQuery']);
+		mocha.run();

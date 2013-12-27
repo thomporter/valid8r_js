@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <title>Valid8r Examples</title>
+  <link rel="stylesheet" href="vendor/mocha.css">
+</head>
+<body>
+  <div id="mocha"></div>
+  <div style="display:none;">
+    <!-- min checks error: 2 checkboxes-->
+    <input type="checkbox" name="min_checked_err[]" value="1" checked>
+    <input type="checkbox" name="min_checked_err[]" value="1" checked>
+    <!-- min checks success: 3 checkboxes-->
+    <input type="checkbox" name="min_checked_suc[]" value="1" checked>
+    <input type="checkbox" name="min_checked_suc[]" value="1" checked>
+    <input type="checkbox" name="min_checked_suc[]" value="1" checked>
+    <!-- max checks err: 5 checkboxes-->
+    <input type="checkbox" name="max_checked_err[]" value="1" checked>
+    <input type="checkbox" name="max_checked_err[]" value="1" checked>
+    <input type="checkbox" name="max_checked_err[]" value="1" checked>
+    <input type="checkbox" name="max_checked_err[]" value="1" checked>
+    <input type="checkbox" name="max_checked_err[]" value="1" checked>
+    <!-- max checks success: 4 checkboxes-->
+    <input type="checkbox" name="max_checked_suc[]" value="1" checked>
+    <input type="checkbox" name="max_checked_suc[]" value="1" checked>
+    <input type="checkbox" name="max_checked_suc[]" value="1" checked>
+    <input type="checkbox" name="max_checked_suc[]" value="1" checked>
+    <!-- min_max checks err: 1 checkboxes-->
+    <input type="checkbox" name="min_max_checked_err[]" value="1" checked>
+    <!-- min_max checks success: 4 checkboxes-->
+    <input type="checkbox" name="min_max_checked_suc[]" value="1" checked>
+    <input type="checkbox" name="min_max_checked_suc[]" value="1" checked>
+    <input type="checkbox" name="min_max_checked_suc[]" value="1" checked>
+    <input type="checkbox" name="min_max_checked_suc[]" value="1" checked>
+  </div>
+  <script src="vendor/require.js"></script>
+  <script src="vendor/jquery.js"></script>
+  <script src="vendor/expect.js"></script>
+  <script src="vendor/mocha.js"></script>
+  <script src="valid8r.js"></script>
+  <script>mocha.setup('bdd')</script>
+  <script src="./tests/numbers.js"></script>
+  <script src="./tests/special_fields.js"></script>
+  <script src="./tests/strings.js"></script>
+  <script src="./tests/checkboxes.js"></script>
+  <script>
+    mocha.checkLeaks();
+    mocha.globals(['jQuery']);
+    mocha.run();
+  </script>
+</body>
