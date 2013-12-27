@@ -70,7 +70,6 @@ describe('Valid8r Special Validators', function(){
 	describe('url', function(){
 		it('should return an error when an invalid URL is given', function(done){
 			v.validate('url_test', 'abc.com', function(field, err){
-				console.log('err',err)
 				if (!err) throw new Error('Url Rule Failed');
 				done();
 			})
@@ -84,17 +83,68 @@ describe('Valid8r Special Validators', function(){
 		});
 	});
 	
-	describe('ip', function(){
+	describe('ip address (either version.)', function(){
 		it('should return an error when an invalid IPv4 address is given', function(done){
-			v.validate('url_test', 'abc.com', function(field, err){
-				console.log('err',err)
-				if (!err) throw new Error('Url Rule Failed');
+			v.validate('ip_test', '256.256.256.256', function(field, err){
+				if (!err) throw new Error('IP Rule Failed');
+				done();
+			})
+		});
+		it('should return an error when an invalid IPv6 address is given', function(done){
+			v.validate('ip_test', 'xe80:0000:0000:0000:0204:61ff:fe9d:f156', function(field, err){
+				if (!err) throw new Error('IP Rule Failed');
+				done();
+			})
+		});
+		it('should not return an error when a valid IPv4 address is given', function(done){
+			v.validate('ip_test', '10.10.10.10', function(field, err){
+				if (err) throw new Error(err);
 				done();
 			})
 		});
 		
-		// TODO: Add more IP tests...
+		it('should not return an error when a valid IPv6 address is given', function(done){
+			v.validate('ip_test', 'fe80:0000:0000:0000:0204:61ff:fe9d:f156', function(field, err){
+				if (err) throw new Error(err);
+				done();
+			})
+		});
+		
 	});
+        describe('ipv4', function(){
+                it('should return an error when an invalid IPv4 address is given', function(done){
+                        v.validate('ipv4_test', '256.256.256.256', function(field, err){
+                                if (!err) throw new Error('IP Rule Failed');
+                                done();
+                        })
+                });
+                it('should not return an error when a valid IPv4 address is given', function(done){
+                        v.validate('ipv4_test', '10.10.10.10', function(field, err){
+                                if (err) throw new Error(err);
+                                done();
+                        })
+                });
+
+        });     
+
+        describe('ipv6', function(){
+                it('should return an error when an invalid IPv6 address is given', function(done){
+                        v.validate('ipv6_test', 'xe80:0000:0000:0000:0204:61ff:fe9d:f156', function(field, err){
+                                if (!err) throw new Error('IP Rule Failed');
+                                done();
+                        })
+                });
+
+                it('should not return an error when a valid IPv6 address is given', function(done){
+                        v.validate('ipv6_test', 'fe80:0000:0000:0000:0204:61ff:fe9d:f156', function(field, err){
+                                if (err) throw new Error(err);
+                                done();
+                        })
+                });
+
+        });
+
 	
 	
-});
+});     
+
