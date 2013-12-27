@@ -93,12 +93,7 @@ describe('Valid8r Special Validators', function(){
 			})
 		});
 		
-		it('should return a blank string when a valid url is given', function(done){
-			v.validate("url_test", 'http://thomporter.com', function(field, err) {
-				if (err) throw new Error(err);
-				else done();
-			})
-		});
+		// TODO: Add more IP tests...
 	});
 	
 	
