@@ -83,6 +83,6 @@ property to the rule, equal to `true`:
 it to go to the server to validate one piece of data before submitting all of 
 the data to the server?
 
-## TODO
+## Mocha Tests
 
-* Mocha browser tests
+If you access the examples you'll find the Mocah Browser tests.
