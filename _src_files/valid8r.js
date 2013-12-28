@@ -228,6 +228,9 @@ window.Valid8r = Valid8r = Valid8r = (function() {
           cb(field, 'Invalid Validator: ' + rule.rule);
       }
     }
+    if (!num_rules) {
+      return cb(field);
+    }
   };
 
   Valid8r.prototype.validCustom = function(field, value, rule, cb) {

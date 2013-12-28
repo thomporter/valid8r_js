@@ -135,7 +135,9 @@ window.Valid8r = Valid8r = class Valid8r
                 when "custom" then if not @validCustom(field, value, rule, cb) then return false;
                 when "ip" then if not @validIp(field, value, rule, cb) then return false;
                 else cb(field, 'Invalid Validator: ' + rule.rule) 
-                
+        # if all rules were skipped for a field, we should unset errors on it.
+        cb(field) if not num_rules
+        
     validCustom: (field, value, rule, cb) ->
         if (rule.func && typeof rule.func is 'function')
             return rule.func(field, value, cb);
