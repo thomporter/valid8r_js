@@ -124,8 +124,8 @@ window.Valid8r = Valid8r = Valid8r = (function() {
   };
 
   Valid8r.prototype.satisfiesConditions = function(r, rule) {
-    var c, sel, v;
-    c = r.conditions[rule.when];
+    var c, sel, v, _ref;
+    c = ((_ref = r.conditions) != null ? _ref[rule.when] : void 0) || this.options.globalConditions[rule.when];
     sel = c.selector || '#' + c.field;
     v = jQuery(sel).val();
     return v === c.is;

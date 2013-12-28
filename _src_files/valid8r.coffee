@@ -99,7 +99,8 @@ window.Valid8r = Valid8r = class Valid8r
         
 
     satisfiesConditions: (r, rule) ->
-        c = r.conditions[rule.when]
+        # @since v0.1.0 - conditions can be set globally
+        c = r.conditions?[rule.when] || @options.globalConditions[rule.when]
         sel = c.selector || '#' + c.field;
         v = jQuery(sel).val();
         return v == c.is
