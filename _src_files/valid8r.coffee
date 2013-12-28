@@ -71,7 +71,16 @@ window.Valid8r = Valid8r = class Valid8r
         e.preventDefault() if (num_err) 
             
     setRules: (rules) ->
-        @options.rules = rules
+        ### @since v0.1.0 - _rules can be a property of the configuration object
+        allowing for other properties to be included, such as _globalConditions
+        ### 
+        if rules._rules
+            @options.globalConditions = rules._globalConditions || {}
+            @options.rules = rules._rules
+        else
+            @options.globalConditions = {}
+            @options.rules = rules
+        
         jQuery.each @options.rules, (f,o) =>
             
             # add selector if necessary
@@ -84,7 +93,7 @@ window.Valid8r = Valid8r = class Valid8r
                     jQuery(o.selector).on('click', @validateOnBlur).data('valid8r_field',f)
                 else
                     jQuery(o.selector).on('blur', @validateOnBlur).data('valid8r_field',f)
-    
+        
     setCallback: (cb) ->
         @callback = cb
         
