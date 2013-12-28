@@ -3,7 +3,6 @@
   <meta charset="utf-8">
   <title>Valid8r Examples</title>
   <link rel="stylesheet" href="vendor/mocha.css">
-  <link rel="stylesheet" href="vendor/bootstrap.min.css">
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -38,6 +37,8 @@
       <input type="checkbox" name="min_max_checked_suc[]" value="1" checked>
       <input type="checkbox" name="min_max_checked_suc[]" value="1" checked>
       <input type="checkbox" name="min_max_checked_suc[]" value="1" checked>
+      <input id="doGlobalConditionalTest" type="hidden" name="doGlobalConditionalTest" value="1">
+      <input id="doNotDoGlobalConditionalTest" type="hidden" name="doNotDoGlobalConditionalTest" value="0">
     </div>
   </div>
   <script src="vendor/require.js"></script>
@@ -51,6 +52,7 @@
   <script src="./tests/special_fields.js"></script>
   <script src="./tests/strings.js"></script>
   <script src="./tests/checkboxes.js"></script>
+  <script src="./tests/global_conditionals.js"></script>
   <script>
     mocha.checkLeaks();
     mocha.globals(['jQuery']);
