@@ -38,7 +38,7 @@ window.Valid8r = Valid8r = class Valid8r
         
     constructor: (options) ->
         defaults=
-            bindToBlur: false
+            bindToBlur: true
             type: "text"
             callback: (field,err) ->
             customValidators: {}

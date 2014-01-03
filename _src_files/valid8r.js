@@ -47,7 +47,7 @@ window.Valid8r = Valid8r = Valid8r = (function() {
     this.submitForm = __bind(this.submitForm, this);
     var defaults;
     defaults = {
-      bindToBlur: false,
+      bindToBlur: true,
       type: "text",
       callback: function(field, err) {},
       customValidators: {},
