@@ -1,6 +1,6 @@
 {
 	"name": "valid8r_js",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"main": [
 		"./js/valid8r.js"
 	],
