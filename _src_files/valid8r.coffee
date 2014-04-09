@@ -55,7 +55,9 @@ window.Valid8r = Valid8r = class Valid8r
         if @options.form
             @form = jQuery(options.form)
             @form.on('submit', @submitForm)
-
+    unload: ->
+        @form.off('submit', @submitForm) if @form
+        
     submitForm: (e) =>
         @validatingOnBlur = false
         @submittedOnce = true
