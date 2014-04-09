@@ -59,6 +59,7 @@ window.Valid8r = Valid8r = Valid8r = (function() {
       data: {},
       form: ''
     };
+    this.numErr = 0;
     this.options = jQuery.extend(defaults, options);
     if (this.options.rules) {
       this.setRules(this.options.rules);
@@ -98,8 +99,13 @@ window.Valid8r = Valid8r = Valid8r = (function() {
       });
     }
     if (num_err) {
-      return e.preventDefault();
+      e.preventDefault();
     }
+    return this.numErr = num_err;
+  };
+
+  Valid8r.prototype.numErrors = function() {
+    return this.numErr;
   };
 
   Valid8r.prototype.setRules = function(rules) {

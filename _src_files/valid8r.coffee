@@ -45,6 +45,7 @@ window.Valid8r = Valid8r = class Valid8r
             rules: {}
             data: {}
             form: ''
+        @numErr = 0
         @options = jQuery.extend defaults, options
         @setRules(@options.rules) if @options.rules
         @callback = @options.callback
@@ -71,6 +72,10 @@ window.Valid8r = Valid8r = class Valid8r
                     @callback(field)
             )
         e.preventDefault() if (num_err) 
+        @numErr = num_err
+
+    numErrors: ->
+        return @numErr
             
     setRules: (rules) ->
         ### @since v0.1.0 - _rules can be a property of the configuration object
